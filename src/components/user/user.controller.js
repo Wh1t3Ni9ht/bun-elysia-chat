@@ -9,8 +9,7 @@ const signup = async ({ body, cookie: { auth }, set }) => {
   try {
     const { username, email, password } = body;
 
-    const user = new User({ username, email, password });
-    await user.save();
+    const user = await User.create({ username, email, password });
 
     const token = jwt.sign({ username: user.username, email: user.email }, process.env.JWT_SECRET);
 

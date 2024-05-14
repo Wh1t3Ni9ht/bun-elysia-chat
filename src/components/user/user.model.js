@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
 		minlength: [8, "Password must be at least 8 characters long"],
 		maxlength: [24, "Password must be at most 18 characters long"],
 	},
-});
+}, { timestamps: true });
 
 userSchema.pre("save", async function (next) {
 	const user = this;
