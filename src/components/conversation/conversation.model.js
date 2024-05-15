@@ -3,7 +3,18 @@ const autoPopulate = require("mongoose-autopopulate");
 
 const chatSchema = new mongoose.Schema({
   name: { type: String },
-  members: [{ type: Schema.Types.ObjectId, ref: 'user', autopopulate: { select: '-password' } }],
+  members: [{
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user',
+      autopopulate: { select: '-password' }
+    },
+    role: {
+      type: String,
+      enum: ['admin', 'moderator', 'member'],
+      default: 'member'
+    }
+  }],
   type: { type: String, enum: ['private', 'group'], default: 'private' },
 }, { timestamps: true });
 
