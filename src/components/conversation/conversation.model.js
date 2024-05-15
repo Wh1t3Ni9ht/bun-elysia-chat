@@ -15,7 +15,7 @@ const chatSchema = new mongoose.Schema({
       default: 'member'
     }
   }],
-  type: { type: String, enum: ['private', 'group'], default: 'private' },
+  type: { type: String, enum: ['private', 'group', 'room'], default: 'private' },
 }, { timestamps: true });
 
 // Set the chat type based on the number of members
