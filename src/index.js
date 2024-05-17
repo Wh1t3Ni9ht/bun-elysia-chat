@@ -6,6 +6,7 @@ import connectDB from "./config/db.js";
 // Routes
 import users from "./components/user/user.routes.js";
 import preferences from "./components/preference/preference.routes.js";
+import friends from "./components/friend/friend.routes.js";
 
 const connectedSockets = new Map();
 
@@ -15,6 +16,7 @@ const app = new Elysia()
 	})
 	.use(users)
 	.use(preferences)
+	.use(friends)
 	.ws("/", {
 		// validate incoming message
 		body: t.Object({
