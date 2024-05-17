@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
 	},
 }, { timestamps: true });
 
-userSchema.pre("save", async function (next) {
+userSchema.pre("save", async function(next) {
 	const user = this;
 
 	if (user.isModified("password")) {
@@ -38,6 +38,18 @@ userSchema.pre("save", async function (next) {
 	}
 })
 
+const confirmationTokenSchema = new mongoose.Schema({
+	userId: { type: mongoose.Schema.Types.ObjectId },
+
+	token: {
+		type: String,
+		required: true,
+		unique: true,
+	},
+})
+
+const ConfirmationToken = mongoose.model("confirmationToken", confirmationTokenSchema);
+
 const User = mongoose.model("user", userSchema);
 
-export default User;
+export { User, ConfirmationToken };

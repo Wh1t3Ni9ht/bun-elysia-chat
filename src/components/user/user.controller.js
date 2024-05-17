@@ -1,6 +1,6 @@
-import User from "./user.model";
+import { User } from "./user.model";
+import Preference from "../preference/preference.model";
 import jwt from "jsonwebtoken";
-
 import dbg from 'debug';
 
 const debug = dbg('app');
@@ -11,7 +11,7 @@ const signup = async ({ body, cookie: { auth }, set }) => {
 
     const user = await User.create({ username, email, password });
 
-    const token = jwt.sign({ username: user.username, email: user.email }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: user.id, username: user.username, email: user.email }, process.env.JWT_SECRET);
 
     auth.set({
       value: token,
@@ -20,6 +20,8 @@ const signup = async ({ body, cookie: { auth }, set }) => {
       path: '/',
     });
 
+    await Preference.create({ user: user.id });
+    
     set.status = 201;
 
     return {
@@ -112,7 +114,7 @@ const signin = async ({ body, cookie: { auth }, set }) => {
       }
     }
 
-    const token = jwt.sign({ username: user.username, email: user.email }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: user.id, username: user.username, email: user.email }, process.env.JWT_SECRET);
 
     auth.set({
       value: token,

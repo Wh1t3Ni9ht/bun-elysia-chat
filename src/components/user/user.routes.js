@@ -8,33 +8,7 @@ const users = new Elysia({ prefix: "/user" })
 			username: t.String(),
 			email: t.String(),
 			password: t.String(),
-		}),
-		response: {
-			201: t.Object({
-				error: t.Null(),
-				data: t.Object({
-					message: t.String(),
-					user: t.Object({
-						username: t.String(),
-						email: t.String(),
-					})
-				})
-			}),
-			400: t.Object({
-				data: t.Null(),
-				error: t.Object({
-					name: t.String(),
-					message: t.String(),
-				})
-			}),
-			500: t.Object({
-				data: t.Null(),
-				error: t.Object({
-					name: t.String(),
-					message: t.String(),
-				})
-			})
-		}
+		})
 	})
 	.post("/signin", userController.signin, {
 		body: t.Object({

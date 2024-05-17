@@ -2,13 +2,13 @@ import mongoose from "mongoose";
 const autoPopulate = require("mongoose-autopopulate");
 
 const friendSchema = new mongoose.Schema({
-  user1: { type: Schema.Types.ObjectId, ref: 'user', autopopulate: { select: '-password' } }, // Reference to User model
-  user2: { type: Schema.Types.ObjectId, ref: 'user', autopopulate: { select: '-password' } }, // Reference to User model
-  status: { type: String, enum: ['pending', 'accepted', 'rejected'], default: 'pending' },
+  user1: { type: Schema.Types.ObjectId, ref: 'user', autopopulate: { select: '-password' }, alias: "requester" },
+  user2: { type: Schema.Types.ObjectId, ref: 'user', autopopulate: { select: '-password' }, alias: "recipient" },
+  status: { type: String, enum: ['pending', 'accepted'], default: 'pending' }
 }, { timestamps: true });
 
 friendSchema.plugin(autoPopulate);
 
-const Friend = mongoose.model("friend", friendSchema);
+const Friendship = mongoose.model("friend", friendSchema);
 
-export default Friend;
+export default Friendship;
