@@ -21,7 +21,7 @@ const signup = async ({ body, cookie: { auth }, set }) => {
     });
 
     await Preference.create({ user: user.id });
-    
+
     set.status = 201;
 
     return {
@@ -238,6 +238,8 @@ const deleteUser = async ({ cookie: { auth }, set }) => {
       maxAge: 0,
       path: '/',
     })
+
+    await Preference.findOneAndDelete({ user: jwtUser.id });
 
     set.status = 200;
 
