@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import autoPopulate from 'mongoose-autopopulate';
 
 // 0 = Private, 1 = Friends, 2 = Everyone
 
@@ -13,6 +14,8 @@ const preferenceSchema = new mongoose.Schema({
   twoFactorAuthentication: { type: Boolean, default: false },
   readReceipts: { type: Boolean, default: true },
 });
+
+preferenceSchema.plugin(autoPopulate);
 
 const Preference = mongoose.model('preference', preferenceSchema);
 
